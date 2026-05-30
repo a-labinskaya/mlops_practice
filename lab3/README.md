@@ -10,7 +10,7 @@
 
 Готовый образ публикуется в Docker Hub:
 
-<https://hub.docker.com/repository/docker/alabinskaya/mlops-lab3/general>
+<https://hub.docker.com/r/alabinskaya/mlops-lab3>
 
 Имя образа:
 
