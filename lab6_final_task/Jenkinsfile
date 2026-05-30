@@ -1,0 +1,29 @@
+﻿pipeline {
+    agent any
+
+    stages {
+        stage('Install dependencies') {
+            steps {
+                sh 'pip install -r lab6_final_task/requirements.txt'
+            }
+        }
+
+        stage('Train model') {
+            steps {
+                sh 'python lab6_final_task/app/train.py'
+            }
+        }
+
+        stage('Run tests') {
+            steps {
+                sh 'pytest -v lab6_final_task/tests'
+            }
+        }
+
+        stage('Build Docker image') {
+            steps {
+                sh 'docker build -f lab6_final_task/Dockerfile -t iris-ml-api .'
+            }
+        }
+    }
+}

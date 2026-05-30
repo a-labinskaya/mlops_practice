@@ -1,0 +1,36 @@
+﻿name: Lab6 Final Task CI
+
+on:
+  push:
+    branches: [ master, main, ahmed ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  test-and-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          pip install -r lab6_final_task/requirements.txt
+
+      - name: Train model
+        run: |
+          python lab6_final_task/app/train.py
+
+      - name: Run tests
+        run: |
+          pytest -v lab6_final_task/tests
+
+      - name: Build Docker image
+        run: |
+          docker build -f lab6_final_task/Dockerfile -t iris-ml-api .
