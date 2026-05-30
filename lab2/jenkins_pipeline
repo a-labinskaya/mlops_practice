@@ -10,7 +10,7 @@ pipeline {
         stage('Install requirements') {
             steps {
                 dir('lab2') {
-                    python3 pip install -r requirements.txt
+                    sh 'python3 -m pip install -r requirements.txt'
                 }
             }
         }
@@ -18,7 +18,7 @@ pipeline {
         stage('Data Creation') {
             steps {
                 dir('lab2') {
-                    python3 data_creation.py
+                    sh 'python3 data_creation.py'
                 }
             }
         }
@@ -26,7 +26,7 @@ pipeline {
         stage('Model Preprocessing') {
             steps {
                 dir('lab2') {
-                    python3 model_preprocessing.py
+                    sh 'python3 model_preprocessing.py'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
         stage('Model Preparation') {
             steps {
                 dir('lab2') {
-                    python3 model_preparation.py
+                    sh 'python3 model_preparation.py'
                 }
             }
         }
@@ -42,7 +42,7 @@ pipeline {
         stage('Model Testing') {
             steps {
                 dir('lab2') {
-                    python3 model_testing.py
+                    sh 'python3 model_testing.py'
                 }
             }
         }
