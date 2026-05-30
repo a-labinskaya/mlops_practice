@@ -2,16 +2,16 @@ pipeline {
     agent any
 
     environment {
-        PYTHON = '.venv/bin/python'
+        PYTHON = '.venv\\Scripts\\python.exe'
     }
 
     stages {
         stage('Prepare environment') {
             steps {
                 dir('lab2') {
-                    sh '''
-                        python3 -m venv .venv
-                        .venv/bin/python -m pip install -r requirements.txt
+                    bat '''
+                        python -m venv .venv
+                        .venv\\Scripts\\python.exe -m pip install -r requirements.txt
                     '''
                 }
             }
@@ -20,7 +20,7 @@ pipeline {
         stage('Data Creation') {
             steps {
                 dir('lab2') {
-                    sh "${PYTHON} data_creation.py"
+                    bat "%PYTHON% data_creation.py"
                 }
             }
         }
@@ -28,7 +28,7 @@ pipeline {
         stage('Data Preprocessing') {
             steps {
                 dir('lab2') {
-                    sh "${PYTHON} data_preprocessing.py"
+                    bat "%PYTHON% data_preprocessing.py"
                 }
             }
         }
@@ -36,7 +36,7 @@ pipeline {
         stage('Model Preparation') {
             steps {
                 dir('lab2') {
-                    sh "${PYTHON} model_preparation.py"
+                    bat "%PYTHON% model_preparation.py"
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
         stage('Model Testing') {
             steps {
                 dir('lab2') {
-                    sh "${PYTHON} model_testing.py"
+                    bat "%PYTHON% model_testing.py"
                 }
             }
         }
