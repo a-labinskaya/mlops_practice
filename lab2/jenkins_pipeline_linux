@@ -1,16 +1,19 @@
 pipeline {
     agent any
-    stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/a-labinskaya/mlops_practice', branch: 'master'
-            }
-        }
 
-        stage('Install requirements') {
+    environment {
+        PYTHON = '.venv/bin/python'
+    }
+
+    stages {
+        stage('Prepare environment') {
             steps {
                 dir('lab2') {
-                    sh 'python3 -m pip install -r requirements.txt'
+                    sh '''
+                        python3 -m venv .venv
+                        .venv/bin/python -m pip install --upgrade pip
+                        .venv/bin/python -m pip install -r requirements.txt
+                    '''
                 }
             }
         }
@@ -18,7 +21,7 @@ pipeline {
         stage('Data Creation') {
             steps {
                 dir('lab2') {
-                    sh 'python3 data_creation.py'
+                    sh "${PYTHON} data_creation.py"
                 }
             }
         }
@@ -26,7 +29,7 @@ pipeline {
         stage('Model Preprocessing') {
             steps {
                 dir('lab2') {
-                    sh 'python3 model_preprocessing.py'
+                    sh "${PYTHON} model_preprocessing.py"
                 }
             }
         }
@@ -34,7 +37,7 @@ pipeline {
         stage('Model Preparation') {
             steps {
                 dir('lab2') {
-                    sh 'python3 model_preparation.py'
+                    sh "${PYTHON} model_preparation.py"
                 }
             }
         }
@@ -42,7 +45,7 @@ pipeline {
         stage('Model Testing') {
             steps {
                 dir('lab2') {
-                    sh 'python3 model_testing.py'
+                    sh "${PYTHON} model_testing.py"
                 }
             }
         }
