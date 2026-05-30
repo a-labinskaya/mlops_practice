@@ -29,7 +29,7 @@ pipeline {
         stage('Model Preprocessing') {
             steps {
                 dir('lab2') {
-                    sh "${PYTHON} model_preprocessing.py"
+                    sh "${PYTHON} data_preprocessing.py"
                 }
             }
         }
