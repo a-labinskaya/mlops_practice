@@ -18,16 +18,6 @@
 alabinskaya/mlops-lab3
 ```
 
-## Локальный запуск без Docker
-
-```bash
-cd lab3
-python -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python -m streamlit run image_classification.py
-```
-
-Приложение будет доступно по адресу `http://localhost:8501`.
 
 ## Запуск через Docker Compose
 
