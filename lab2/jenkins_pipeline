@@ -1,10 +1,59 @@
 pipeline {
     agent any
     stages {
-     stage('Hello') {
-                steps {
-                    echo 'Hello world'
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/a-labinskaya/mlops_practice', branch: 'master'
+            }
+        }
+
+        stage('Install requirements') {
+            steps {
+                dir('lab2') {
+                    python3 pip install -r requirements.txt
                 }
             }
-     }
+        }
+
+        stage('Data Creation') {
+            steps {
+                dir('lab2') {
+                    python3 data_creation.py
+                }
+            }
+        }
+
+        stage('Model Preprocessing') {
+            steps {
+                dir('lab2') {
+                    python3 model_preprocessing.py
+                }
+            }
+        }
+
+        stage('Model Preparation') {
+            steps {
+                dir('lab2') {
+                    python3 model_preparation.py
+                }
+            }
+        }
+
+        stage('Model Testing') {
+            steps {
+                dir('lab2') {
+                    python3 model_testing.py
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Pipeline выполнен успешно!'
+        }
+        failure {
+            echo 'Произошла ошибка при выполнении Pipeline'
+        }
+    }
 }
