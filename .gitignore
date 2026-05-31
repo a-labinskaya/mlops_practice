@@ -2,4 +2,4 @@
 target
 *.iml
 **/*.iml
-**/.env
+**/.envdvc_storage/
